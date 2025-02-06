@@ -1,0 +1,24 @@
+name: Daily Commit
+
+on:
+  schedule:
+    - cron: '0 9 * * *'  # This will run the workflow at 9:00 AM UTC every day
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Add commit with email 23f2003893@ds.study.iitm.ac.in
+        run: |
+          # Make some change to the repository (e.g., add a timestamp file)
+          echo "Commit made at $(date)" >> timestamp.txt
+          git config --global user.email "23f2003893@ds.study.iitm.ac.in"
+          git config --global user.name "GitHub Actions"
+          git add timestamp.txt
+          git commit -m "Daily commit by GitHub Actions"
+          git push
+
